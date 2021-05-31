@@ -1,7 +1,69 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
+import 'package:tevta_delivery/styles/theam.dart';
+import 'package:tevta_delivery/ui_screens/login_screens/login_Page.dart';
+
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Welcome",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: primaryColor,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              height: 55,
+              width: 280,
+              margin: EdgeInsets.only(bottom: 20),
+              child: RaisedButton(
+                elevation: 5.0,
+                color: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                child: Text(
+                  "Sign Out",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+/*import 'package:flutter/material.dart';
 import 'package:tevta_delivery/home/account.dart';
 import 'package:tevta_delivery/home/notification.dart';
 import 'package:tevta_delivery/home/package.dart';
+import 'package:tevta_delivery/ui_screens/login_screens/login_Page.dart';
+
+import 'home.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,13 +75,13 @@ class _HomePageState extends State<HomePage> {
 
   int currentTab = 0; // to keep track of active tab index
   final List<Widget> screens = [
-    HomePage(),
+    Home(),
     PackagePage(),
     NotificationPage(),
     AccountPage(),
   ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomePage(); // Our first view in viewport
+  Widget currentScreen = Home(); // Our first view in viewport
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +97,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        notchMargin: 10,
+        //notchMargin: 10,
         child: Container(
           height: 60,
           child: Row(
@@ -49,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         currentScreen =
-                            HomePage(); // if user taps on this dashboard tab will be active
+                            Home(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
                     },
@@ -61,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                           color: currentTab == 0 ? Colors.blue : Colors.grey,
                         ),
                         Text(
-                          'Dashboard',
+                          'Home',
                           style: TextStyle(
                             color: currentTab == 0 ? Colors.blue : Colors.grey,
                           ),
@@ -86,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                           color: currentTab == 1 ? Colors.blue : Colors.grey,
                         ),
                         Text(
-                          'Chats',
+                          'Package',
                           style: TextStyle(
                             color: currentTab == 1 ? Colors.blue : Colors.grey,
                           ),
@@ -119,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                           color: currentTab == 2 ? Colors.blue : Colors.grey,
                         ),
                         Text(
-                          'Profile',
+                          'Notification',
                           style: TextStyle(
                             color: currentTab == 2 ? Colors.blue : Colors.grey,
                           ),
@@ -144,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                           color: currentTab == 3 ? Colors.blue : Colors.grey,
                         ),
                         Text(
-                          'Settings',
+                          'Account',
                           style: TextStyle(
                             color: currentTab == 3 ? Colors.blue : Colors.grey,
                           ),
@@ -160,4 +222,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
+}*/

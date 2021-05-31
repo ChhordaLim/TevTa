@@ -1,30 +1,51 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:tevta_delivery/home/home_page.dart';
+import 'package:tevta_delivery/styles/theam.dart';
+import 'package:tevta_delivery/ui_screens/informations/Step1/personal_information1.dart';
+import 'package:tevta_delivery/ui_screens/reserPassword/resetPassword.dart';
 
 class VerifycodeResetPW extends StatefulWidget {
-  /* final String phoneNumber;
-
-  VerifyPhoneNumber({@required this.phoneNumber}); */
-
+  String verificationId, phoneNumber, profile, name;
+  int resendToken, id;
+  VerifycodeResetPW(
+      {this.verificationId,
+      this.resendToken,
+      this.profile,
+      this.name,
+      this.id,
+      this.phoneNumber});
   @override
   _VerifycodeResetPWState createState() => _VerifycodeResetPWState();
 }
 
 class _VerifycodeResetPWState extends State<VerifycodeResetPW> {
   String code = "";
+  String smsCode;
+
+  var code1 = TextEditingController();
+  var code2 = TextEditingController();
+  var code3 = TextEditingController();
+  var code4 = TextEditingController();
+  var code5 = TextEditingController();
+  var code6 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
             child: Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios,
               size: 30,
-              color: Colors.black,
+              color: primaryColor,
             ),
           ),
           backgroundColor: Colors.white,
@@ -37,22 +58,6 @@ class _VerifycodeResetPWState extends State<VerifycodeResetPW> {
             children: <Widget>[
               _buildLogo(),
               _buildBox(),
-              /* NumericPad(
-              onNumberSelected: (value) {
-                print(value);
-                setState(() {
-                  if(value != -1){
-                    if(code.length < 4){
-                      code = code + value.toString();
-                    }
-                  }
-                  else{
-                    code = code.substring(0, code.length - 1);
-                  }
-                  print(code);        
-                });
-              },
-            ), */
             ],
           ),
         ),
@@ -75,49 +80,310 @@ class _VerifycodeResetPWState extends State<VerifycodeResetPW> {
   }
 
   Widget _buildBox() {
+    final node = FocusScope.of(context);
     return Container(
-      color: Colors.grey,
+      color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(vertical: 14),
             child: Text(
-              "The Code has been sent SMS to +8551223456" /* + widget.phoneNumber */,
+              "The Code has been sent",
+              style: TextStyle(
+                fontSize: 15,
+                color: Color(0xff707070),
+              ),
             ),
           ),
+          SizedBox(
+            height: 30,
+          ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              buildCodeNumberBox(code.length > 0 ? code.substring(0, 1) : ""),
-              buildCodeNumberBox(code.length > 1 ? code.substring(1, 2) : ""),
-              buildCodeNumberBox(code.length > 2 ? code.substring(2, 3) : ""),
-              buildCodeNumberBox(code.length > 3 ? code.substring(3, 4) : ""),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                height: 55,
+                width: 300,
+                child: TextFormField(
+                  controller: code1,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[350],
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
+              ),
+              /* SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: TextFormField(
+                    controller: code2,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[350],
+                        fontSize: 30,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        node.nextFocus();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: TextFormField(
+                    controller: code3,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[350],
+                        fontSize: 30,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        node.nextFocus();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: TextFormField(
+                    controller: code4,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[350],
+                        fontSize: 30,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        node.nextFocus();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: TextFormField(
+                    controller: code5,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[350],
+                        fontSize: 30,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        node.nextFocus();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: TextFormField(
+                    controller: code6,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[350],
+                        fontSize: 30,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        if (code1.text.length == 1) {
+                          if (code2.text.length == 1) {
+                            if (code3.text.length == 1) {
+                              if (code4.text.length == 1) {
+                                if (code5.text.length == 1) {
+                                  /* //recive opt
+                                  String otp =
+                                      '${code1.text}${code2.text}${code3.text}${code4.text}${code5.text}${code6.text}'; */
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                  ),
+                ),
+              ), */
             ],
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 14),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Did not get code? ",
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 90,
+                    ),
+                    Text(
+                      "Did not get code?",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xff707070),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 9,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        print("Resend the code to the user");
+                      },
+                      child: Text(
+                        "Re-Send",
+                        style: TextStyle(fontSize: 18, color: primaryColor),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 8,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    print("Resend the code to the user");
-                  },
-                  child: Text(
-                    "Re-Send",
-                    style: TextStyle(
-                      fontSize: 18,
+                Container(
+                  height: 50,
+                  width: 220,
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: RaisedButton(
+                    elevation: 5.0,
+                    color: primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    onPressed: () {
+                      _verify(code1.text);
+                    },
+                    child: Text(
+                      "Verify",
+                      style: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: 1.5,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 ),
+                /* GestureDetector(
+                  onTap: () {
+                    _verify(code1.text);
+                  },
+                  child: Text(
+                    "Verify",
+                    style: TextStyle(fontSize: 20, color: primaryColor),
+                  ),
+                ), */
               ],
             ),
           ),
@@ -126,38 +392,34 @@ class _VerifycodeResetPWState extends State<VerifycodeResetPW> {
     );
   }
 
-  Widget buildCodeNumberBox(String codeNumber) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      child: SizedBox(
-        width: 60,
-        height: 60,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFF6F5FA),
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
+  _verify(String otp) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithCredential(
+        PhoneAuthProvider.credential(
+            verificationId: widget.verificationId, smsCode: otp),
+      )
+          .then((value) async {
+        if (value.user != null) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ResetPassword(
+              phoneNumber: widget.phoneNumber,
+              profile: widget.profile,
+              name: widget.name,
+              id: widget.id,
             ),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 25.0,
-                  spreadRadius: 1,
-                  offset: Offset(0.0, 0.75))
-            ],
-          ),
-          child: Center(
-            child: Text(
-              codeNumber,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1F1F1F),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+          ));
+          print(true);
+        }
+      });
+    } catch (e) {
+      Flushbar(
+        flushbarPosition: FlushbarPosition.TOP,
+        title: "Error",
+        message: "invalid OTP",
+        duration: Duration(seconds: 2),
+      )..show(context);
+      print(false);
+    }
   }
 }

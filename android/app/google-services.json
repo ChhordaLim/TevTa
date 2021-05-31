@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "171600285321",
+    "project_id": "phoneauth-73d35",
+    "storage_bucket": "phoneauth-73d35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171600285321:android:be690ae282d840608dc058",
+        "android_client_info": {
+          "package_name": "com.example.tevta_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171600285321-daltipn85uqjp9nj7l4cgjo3lg7m1vld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tevta_delivery",
+            "certificate_hash": "35199904115149e0a8a45f534c432cdf3825ec69"
+          }
+        },
+        {
+          "client_id": "171600285321-k553vo37v872i095l305c6rcqdb6vjma.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tevta_delivery",
+            "certificate_hash": "935f8ad865f3f86c39f8a4f515a6802869d34d1d"
+          }
+        },
+        {
+          "client_id": "171600285321-j8l2dp3ecg2i3edjsf8ks4g4kqp12qrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGhOnUVcVp5Ud4LcqvFgjM_o1f-uV7Q7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171600285321-j8l2dp3ecg2i3edjsf8ks4g4kqp12qrk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
